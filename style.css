@@ -1,0 +1,33 @@
+/*
+Selector{
+  property: value;
+  property: value;
+  property: value;
+} */
+
+body {
+  color: blue;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-style: italic;
+}
+
+h1 {
+
+}
+
+.classname {
+
+}
+
+.anotherclass {
+
+}
+
+#idone {
+
+}
+
+#id_two {
+
+}
