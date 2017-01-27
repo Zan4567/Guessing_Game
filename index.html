@@ -1,14 +1,115 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>201 Guessing Game</title>
-    <link rel="stylesheet" href="style.css">
+    <title>About Me</title>
+
   </head>
   <body>
-    <header></header>
-    <main></main>
-    <footer></footer>
+    <header>
+      <h1>Kevin Robinson</h1>
+    </header>
 
-    <script src="game.js"></script>
+    <h2><u>Biography</u></h2>
+    <p>I am a programmer from Western Washington. I love animals and computers. I hope to get a programming-related job soon, and I am working on some of my own projects in the mean time.</p>
+    <h2><u>Skills</u></h2>
+    <ul>
+      <li>Programming in C, C++, and Java</li>
+      <li>Proficiency in typing and common office programs</li>
+      <li>HTML, CSS, and Javascript</li>
+    </ul>
+    <h2><u>Quiz</u></h2>
+    <ul>
+      <li>Was I born around Seattle?</li>
+      <li>Did I have dogs growing up?</li>
+      <li>Have I done any coding before?</li>
+      <li>Do I speak any foreign languages?</li>
+    </ul>
+
+    <footer>
+      <!-- footer -->
+    </footer>
+
+    <script type="text/javascript">
+      var username = prompt('What\'s your name?');
+      alert('Hello, ' + username + '. Thanks for coming to my site!');
+      var correct = 0;
+      /*
+      we want to ask the user a question
+      take answer as input
+      store in variable
+      validate answer vs. my answer
+      depending on T/F, provide feedback
+      */
+
+      //quiz questions
+      var answer1 = prompt('say, ' + username + ', Was I born around Seattle?');
+      var myAnswer1 = true;
+      if(checkYNAnswer(answer1, myAnswer1) === true) {
+        alert('Correct! I\'m a Seattlite.');
+        correct++;
+      }
+      else {
+        alert('Too bad! Try again.');
+      }
+
+      var answer2 = prompt('say, ' + username + ', Did I have dogs growing up?');
+      var myAnswer2 = false;
+      if(checkYNAnswer(answer2, myAnswer2) === true) {
+        alert('Correct! I had cats growing up, not dogs.');
+        correct++;
+      }
+      else {
+        alert('Too bad! Try again.');
+      }
+
+      var answer3 = prompt('say, ' + username + ', Have I done any coding before?');
+      var myAnswer3 = true;
+      if(checkYNAnswer(answer3, myAnswer3)) {
+        alert('Correct! I\'m actually working on a project of my own right now.');
+        correct++;
+      }
+      else {
+        alert('Too bad! Try again.');
+      }
+
+      var answer4 = prompt('say, ' + username + ', Do I speak any foreign languages?');
+      var myAnswer4 = false;
+      if(checkYNAnswer(answer4, myAnswer4)) {
+        alert('Correct! I want to learn Japanese though.');
+        correct++;
+      }
+      else {
+        alert('Too bad! Try again.');
+      }
+
+      if(correct === 4)
+      {
+        alert('Congrats! You got all the answers correct!');
+      }
+      else
+      {
+        alert('You got ' + correct + ' correct out of 4 questions');
+      }
+
+      //Check answer against provided one
+      //ans - the user's answer (string)
+      ///real - the actual correct answer (bool)
+      function checkYNAnswer(ans, real) {
+        var interpreted = false;
+        if(ans === null)return false;
+
+        if(ans.toLowerCase() === 'y' || ans.toLowerCase() === 'yes') {
+          interpreted = true;
+        }
+        else if(ans.toLowerCase() === 'n' || ans.toLowerCase() === 'no'){
+          interpreted = false;
+        }
+        else {
+          return false;
+        }
+
+        return interpreted === real;
+      }
+    </script>
   </body>
 </html>
