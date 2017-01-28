@@ -4,7 +4,9 @@ var answers = [
   true,
   false,
   true,
-  false
+  false,
+  ['crow', 'crows'],
+  ['fruit', 'nuts', 'peanuts', 'eggs', 'bread', 'grain']
 ];
 
 var username = prompt('What\'s your name?');
@@ -19,7 +21,7 @@ depending on T/F, provide feedback
 */
 
 //quiz questions
-var answer0 = prompt('say, ' + username + ', Was I born around Seattle?');
+var answer0 = prompt('say, ' + username + ', was I born around Seattle?');
 if(checkAnswer(answer0, answers[0]) === true) {
   alert('Correct! I\'m a Seattlite.');
   correct++;
@@ -28,7 +30,7 @@ else {
   alert('Too bad! Try again.');
 }
 
-var answer1 = prompt('say, ' + username + ', Did I have dogs growing up?');
+var answer1 = prompt('say, ' + username + ', did I have dogs growing up?');
 if(checkAnswer(answer1, answers[1]) === true) {
   alert('Correct! I had cats growing up, not dogs.');
   correct++;
@@ -37,7 +39,7 @@ else {
   alert('Too bad! Try again.');
 }
 
-var answer2 = prompt('say, ' + username + ', Have I done any coding before?');
+var answer2 = prompt('say, ' + username + ', have I done any coding before?');
 if(checkAnswer(answer2, answers[2])) {
   alert('Correct! I\'m actually working on a project of my own right now.');
   correct++;
@@ -46,9 +48,27 @@ else {
   alert('Too bad! Try again.');
 }
 
-var answer3 = prompt('say, ' + username + ', Do I speak any foreign languages?');
+var answer3 = prompt('say, ' + username + ', do I speak any foreign languages?');
 if(checkAnswer(answer3, answers[3])) {
   alert('Correct! I want to learn Japanese though.');
+  correct++;
+}
+else {
+  alert('Too bad! Try again.');
+}
+
+var answer4 = prompt('say, ' + username + ', what kind of wild animal do I feed?');
+if(checkAnswerMulti(answer4, answers[4]) === true) {
+  alert('Correct! I want to make friends with them!');
+  correct++;
+}
+else {
+  alert('Too bad! Try again.');
+}
+
+var answer5 = prompt('say, ' + username + ', what are some good things to feed crows?');
+if(checkAnswer(answer5, answers[5]) === true) {
+  alert('Correct! I usually feed mine peanuts.');
   correct++;
 }
 else {
