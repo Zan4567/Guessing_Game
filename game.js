@@ -11,6 +11,7 @@ var answers = [
 
 var username = prompt('What\'s your name?');
 alert('Hello, ' + username + '. Thanks for coming to my site!');
+console.log('User name: ' + username);
 var correct = 0;
 /*
 we want to ask the user a question
@@ -22,7 +23,7 @@ depending on T/F, provide feedback
 
 //quiz questions
 var answer0 = prompt('say, ' + username + ', was I born around Seattle?');
-if(checkAnswer(answer0, answers[0]) === true) {
+if(logAnswer(answer0, answers[0], 0) === true) {
   alert('Correct! I\'m a Seattlite.');
   correct++;
 }
@@ -31,7 +32,7 @@ else {
 }
 
 var answer1 = prompt('say, ' + username + ', did I have dogs growing up?');
-if(checkAnswer(answer1, answers[1]) === true) {
+if(logAnswer(answer1, answers[1], 1) === true) {
   alert('Correct! I had cats growing up, not dogs.');
   correct++;
 }
@@ -40,7 +41,7 @@ else {
 }
 
 var answer2 = prompt('say, ' + username + ', have I done any coding before?');
-if(checkAnswer(answer2, answers[2])) {
+if(logAnswer(answer2, answers[2], 2)) {
   alert('Correct! I\'m actually working on a project of my own right now.');
   correct++;
 }
@@ -49,7 +50,7 @@ else {
 }
 
 var answer3 = prompt('say, ' + username + ', do I speak any foreign languages?');
-if(checkAnswer(answer3, answers[3])) {
+if(logAnswer(answer3, answers[3], 3)) {
   alert('Correct! I want to learn Japanese though.');
   correct++;
 }
@@ -58,7 +59,7 @@ else {
 }
 
 var answer4 = prompt('say, ' + username + ', what kind of wild animal do I feed?');
-if(checkAnswerMulti(answer4, answers[4]) === true) {
+if(checkAnswerMulti(answer4, answers[4], 4) === true) {
   alert('Correct! I want to make friends with them!');
   correct++;
 }
@@ -67,7 +68,7 @@ else {
 }
 
 var answer5 = prompt('say, ' + username + ', what are some good things to feed crows?');
-if(checkAnswer(answer5, answers[5]) === true) {
+if(checkAnswerMulti(answer5, answers[5], 5) === true) {
   alert('Correct! I usually feed mine peanuts.');
   correct++;
 }
@@ -75,6 +76,7 @@ else {
   alert('Too bad! Try again.');
 }
 
+console.log('Correct answers: ' + correct + '/' + answers.length);
 if(correct === answers.length)
 {
   alert('Congrats! You got all the answers correct!');
@@ -82,6 +84,14 @@ if(correct === answers.length)
 else
 {
   alert('You got ' + correct + ' correct out of ' + answers.length + ' questions');
+}
+
+//wrapper for checkAnswer that prints the result to the console
+function logAnswer(ans, real, number) {
+  var banswer = checkAnswer(ans, real);
+
+  console.log('Question ' + number + ', answer given: ' + ans + ' result: ' + banswer);
+  return banswer;
 }
 
 //Check answer against provided one
@@ -104,12 +114,14 @@ function checkAnswer(ans, real) {
   return ans === real;
 }
 
-function checkAnswerMulti(ans, reals) {
+function checkAnswerMulti(ans, reals, number) {
   for(var i = 0; i < reals.length; i++) {
     if(checkAnswer(ans, reals[i])) {
+      console.log('Question ' + number + ', answer given: ' + ans + ' result: true');
       return true;
     }
   }
 
+  console.log('Question ' + number + ', answer given: ' + ans + ' result: false');
   return false;
 }
