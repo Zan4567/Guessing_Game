@@ -1,112 +1,79 @@
-var answers = [
-  true,
-  false,
-  true,
-  false,
-  false,
-  1588,
-  ['crow', 'crows'], //six tries, display all right answers after
-  ['fruit', 'nuts', 'peanuts', 'eggs', 'bread', 'grain']
-];
-var correctAnswers = 0;
+function guessingGame() {
 
-var username = prompt('What\'s your name?');
-alert('Hello, ' + username + '. Thanks for coming to my site!');
-console.log('User name: ' + username);
+  var questions = [
+    [1, 'was I born around Seattle?', 'Correct! I\'m a Seattlite.', ''],
+    [1, 'did I have dogs growing up?', 'Correct! I had cats growing up, not dogs.', ''],
+    [1, 'have I done any coding before?', 'Correct! I\'m actually working on a project of my own right now.', ''],
+    [1, 'do I speak any foreign languages?', 'Correct! I want to learn Japanese though.', ''],
+    [1, 'am I a football fan?', 'Correct! I\'m not a follower of either type of football.', ''],
+    [4, 'What year did the Spanish Armada attack England?', 'Correct! I really enjoyed the book about it by Garrett Mattingly.', 'number'],
+    [6, 'what kind of wild animal do I feed?', 'Correct! I want to make friends with them!', 'string'],
+    [6, 'what are some good things to feed crows?', 'Correct! I usually feed mine peanuts.', 'string']
+  ]
 
+  var answers = [
+    [true],
+    [false],
+    [true],
+    [false],
+    [false],
+    [1588],
+    ['crow', 'crows'],
+    ['fruit', 'nuts', 'peanuts', 'eggs', 'bread', 'grain']
+  ];
 
-//quiz questions
-var answer0 = prompt('say, ' + username + ', was I born around Seattle?');
-if(logAnswer(answer0, answers[0], 0) === true) {
-  alert('Correct! I\'m a Seattlite.');
-  correctAnswers++;
-}
-else {
-  alert('Too bad! Try again.');
-}
+  console.log('Beginning game.');
+  var correctAnswers = 0;
 
-var answer1 = prompt('say, ' + username + ', did I have dogs growing up?');
-if(logAnswer(answer1, answers[1], 1) === true) {
-  alert('Correct! I had cats growing up, not dogs.');
-  correctAnswers++;
-}
-else {
-  alert('Too bad! Try again.');
-}
+  var username = prompt('What\'s your name?');
+  alert('Hello, ' + username + '. Thanks for coming to my site!');
+  console.log('User name: ' + username);
 
-var answer2 = prompt('say, ' + username + ', have I done any coding before?');
-if(logAnswer(answer2, answers[2], 2)) {
-  alert('Correct! I\'m actually working on a project of my own right now.');
-  correctAnswers++;
-}
-else {
-  alert('Too bad! Try again.');
+  for (var i = 0; i < questions.length; i++) {
+    if(answerQuestion(username, questions[i], answers[i])) {
+      correctAnswers++;
+    }
+  }
+
+  console.log('Correct answers: ' + correctAnswers + '/' + answers.length);
+  displayScoreMessage(correctAnswers, answers.length, username);
 }
 
-var answer3 = prompt('say, ' + username + ', do I speak any foreign languages?');
-if(logAnswer(answer3, answers[3], 3)) {
-  alert('Correct! I want to learn Japanese though.');
-  correctAnswers++;
-}
-else {
-  alert('Too bad! Try again.');
+function answerQuestion(name, questionData, ans) {
+  var isCorrect = false;
+
+  if(questionData[3] === 'number') {
+    console.log('Question: ' + questionData[1] + ' TYPE:number');
+    isCorrect = guessNumericAnswer(questionData[1], ans[0], questionData[0]);
+  }
+  else if(questionData[3] === 'string') {
+    console.log('Question: ' + questionData[1] + ' TYPE:string');
+    isCorrect = guessStringAnswer(questionData[1], ans, questionData[0]);
+  }
+  else {
+    console.log('Question: ' + questionData[1] + ' TYPE:boolean');
+    isCorrect = guessBooleanAnswer(questionData[1], ans[0], questionData[0]);
+  }
+
+  if(isCorrect) {
+    alert(questionData[2]);
+    displayAnswers(ans);
+    return true;
+  }
+  else {
+    displayAnswers(ans);
+    return false;
+  }
 }
 
-var answer4 = prompt('say, ' + username + ', am I a football fan?');
-if(logAnswer(answer4, answers[4], 4)) {
-  alert('Correct! I\'m not a follower of either type of football.');
-  correctAnswers++;
-}
-else {
-  alert('Too bad! Try again.');
-}
-
-//var answer5 = prompt('What year did the Spanish Armada attack England?');
-if(guessNumericAnswer('What year did the Spanish Armada attack England?', answers[5], 4) === true) {
-  alert('Correct! I really enjoyed the book about it by Garrett Mattingly.');
-  correctAnswers++;
-}
-else {
-  alert('Too bad! Try again.');
-}
-
-var answer6 = prompt('say, ' + username + ', what kind of wild animal do I feed?');
-if(checkAnswerMulti(answer6, answers[6], 6) === true) {
-  alert('Correct! I want to make friends with them!');
-  correctAnswers++;
-}
-else {
-  alert('Too bad! Try again.');
-}
-
-var answer7 = prompt('say, ' + username + ', what are some good things to feed crows?');
-if(checkAnswerMulti(answer7, answers[7], 7) === true) {
-  alert('Correct! I usually feed mine peanuts.');
-  correctAnswers++;
-}
-else {
-  alert('Too bad! Try again.');
-}
-
-console.log('Correct answers: ' + correctAnswers + '/' + answers.length);
-displayScoreMessage(correctAnswers, answers.length, username);
-
-//wrapper for checkAnswer that prints the result to the console
-function logAnswer(ans, real, number) {
-  var banswer = checkAnswer(ans, real);
-
-  console.log('Question ' + number + ', answer given: ' + ans + ' result: ' + banswer);
-  return banswer;
-}
-
-//Check answer against provided one
+//Check boolean answer against provided one
 //ans - the user's answer (string)
 ///real - the actual correct answer (bool)
 function checkAnswer(ans, real) {
   if(ans === null)return false;
 
   //prevent error from calling toLowerCase on a number.
-  if(typeof ans === "number") {
+  if(typeof ans === 'number') {
     return ans === real;
   }
   else if(ans.toLowerCase() === 'y' || ans.toLowerCase() === 'yes') {
@@ -120,21 +87,79 @@ function checkAnswer(ans, real) {
 }
 
 /**
- * answer checker for multiple answers. Checks given answer against each possible answer
- * @param  unknown  ans     answer given by the user
- * @param  array    reals   array of possible correct answers
- * @param  number   number  the number of the current question. used in logging
- * @return bool             whether the answer was correct
- */
-function checkAnswerMulti(ans, reals, number) {
+* answer checker for multiple answers. Checks given answer against each possible answer
+* @param  unknown  ans     answer given by the user
+* @param  array    reals   array of possible correct answers
+* @param  number   number  the number of the current question. used in logging
+* @return bool             whether the answer was correct
+*/
+function checkAnswerMulti(ans, reals) {
   for(var i = 0; i < reals.length; i++) {
     if(checkAnswer(ans, reals[i])) {
-      console.log('Question ' + number + ', answer given: ' + ans + ' result: true');
+      //console.log('Question ' + number + ', answer given: ' + ans + ' result: true');
       return true;
     }
   }
 
-  console.log('Question ' + number + ', answer given: ' + ans + ' result: false');
+  //console.log('Question ' + number + ', answer given: ' + ans + ' result: false');
+  return false;
+}
+
+function displayAnswers(answers) {
+  var str = 'Answers: ';
+  if(answers.length <= 1) {
+    return;
+  }
+
+  for (var i = 0; i < answers.length - 1; i++) {
+    str = str + answers[i] + ', ';
+  }
+  str = str + answers[answers.length - 1]; //no comma after the last answer.
+
+  alert(str);
+}
+
+function guessBooleanAnswer(question, real, maxGuesses)
+{
+  var guesses = 0;
+  var answer;
+
+  while(guesses < maxGuesses)
+  {
+    answer = prompt(question + ' guess ' + (guesses + 1) + '/' + maxGuesses);
+    console.log('Answer ' + (guesses + 1) + ' of ' + maxGuesses + ': ' + answer);
+
+    if(checkAnswer(answer, real)) {
+      return true;
+    }
+    else {
+      alert('Sorry, wrong answer!');
+      guesses++;
+    }
+  }
+
+  return false;
+}
+
+function guessStringAnswer(question, reals, maxGuesses)
+{
+  var guesses = 0;
+  var answer;
+
+  while(guesses < maxGuesses)
+  {
+    answer = prompt(question + ' guess ' + (guesses + 1) + '/' + maxGuesses);
+    console.log('Answer ' + (guesses + 1) + ' of ' + maxGuesses + ': ' + answer);
+
+    if(checkAnswerMulti(answer, reals)) {
+      return true;
+    }
+    else {
+      alert('Sorry, wrong answer!');
+      guesses++;
+    }
+  }
+
   return false;
 }
 
@@ -151,7 +176,8 @@ function guessNumericAnswer(question, real, maxGuesses)
 
   while(guesses < maxGuesses)
   {
-    answer = parseInt(prompt(question + ' ' + (guesses + 1) + '/' + maxGuesses));
+    answer = parseInt(prompt(question + ' guess ' + (guesses + 1) + '/' + maxGuesses));
+    console.log('Answer ' + (guesses + 1) + ' of ' + maxGuesses + ': ' + answer);
     if(typeof answer !== 'number')
     {
       alert('please answer with a number!');
