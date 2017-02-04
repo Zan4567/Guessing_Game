@@ -54,7 +54,14 @@ else {
   alert('Too bad! Try again.');
 }
 
-
+var answer4 = prompt('say, ' + username + ', am I a football fan?');
+if(logAnswer(answer4, answers[4], 4)) {
+  alert('Correct! I\'m not a follower of either type of football.');
+  correctAnswers++;
+}
+else {
+  alert('Too bad! Try again.');
+}
 
 //var answer5 = prompt('What year did the Spanish Armada attack England?');
 if(guessNumericAnswer('What year did the Spanish Armada attack England?', answers[5], 4) === true) {
@@ -123,7 +130,7 @@ function checkAnswer(ans, real) {
 
 /**
  * answer checker for multiple answers. Checks given answer against each possible answer
- * @param  {[type]} ans     [description]
+ * @param  unknown  ans     answer given by the user
  * @param  array    reals   array of possible correct answers
  * @param  number   number  the number of the current question. used in logging
  * @return bool             whether the answer was correct
