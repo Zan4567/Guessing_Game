@@ -5,7 +5,7 @@ var answers = [
   false,
   true,
   false,
-  // one more TF question
+  false,
   // one numerical guessing question, four tries
   ['crow', 'crows'], //six tries, display all right answers after
   ['fruit', 'nuts', 'peanuts', 'eggs', 'bread', 'grain']
@@ -54,8 +54,17 @@ else {
   alert('Too bad! Try again.');
 }
 
-var answer4 = prompt('say, ' + username + ', what kind of wild animal do I feed?');
-if(checkAnswerMulti(answer4, answers[4], 4) === true) {
+var answer4 = prompt('say, ' + username + ', am I a football fan?');
+if(logAnswer(answer4, answers[4], 4)) {
+  alert('Correct! I\'m not a follower of either type of football.');
+  correctAnswers++;
+}
+else {
+  alert('Too bad! Try again.');
+}
+
+var answer5 = prompt('say, ' + username + ', what kind of wild animal do I feed?');
+if(checkAnswerMulti(answer5, answers[5], 5) === true) {
   alert('Correct! I want to make friends with them!');
   correctAnswers++;
 }
@@ -63,8 +72,8 @@ else {
   alert('Too bad! Try again.');
 }
 
-var answer5 = prompt('say, ' + username + ', what are some good things to feed crows?');
-if(checkAnswerMulti(answer5, answers[5], 5) === true) {
+var answer6 = prompt('say, ' + username + ', what are some good things to feed crows?');
+if(checkAnswerMulti(answer6, answers[6], 6) === true) {
   alert('Correct! I usually feed mine peanuts.');
   correctAnswers++;
 }
@@ -112,7 +121,7 @@ function checkAnswer(ans, real) {
 
 /**
  * answer checker for multiple answers. Checks given answer against each possible answer
- * @param  {[type]} ans     [description]
+ * @param  unknown  ans     answer given by the user
  * @param  array    reals   array of possible correct answers
  * @param  number   number  the number of the current question. used in logging
  * @return bool             whether the answer was correct
