@@ -5,7 +5,9 @@ var answers = [
   false,
   true,
   false,
-  ['crow', 'crows'],
+  // one more TF question
+  // one numerical guessing question, four tries
+  ['crow', 'crows'], //six tries, display all right answers after
   ['fruit', 'nuts', 'peanuts', 'eggs', 'bread', 'grain']
 ];
 var correctAnswers = 0;
@@ -14,13 +16,6 @@ var username = prompt('What\'s your name?');
 alert('Hello, ' + username + '. Thanks for coming to my site!');
 console.log('User name: ' + username);
 
-/*
-we want to ask the user a question
-take answer as input
-store in variable
-validate answer vs. my answer
-depending on T/F, provide feedback
-*/
 
 //quiz questions
 var answer0 = prompt('say, ' + username + ', was I born around Seattle?');
