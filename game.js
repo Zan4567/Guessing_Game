@@ -6,7 +6,7 @@ var answers = [
   true,
   false,
   false,
-  // one numerical guessing question, four tries
+  1588,
   ['crow', 'crows'], //six tries, display all right answers after
   ['fruit', 'nuts', 'peanuts', 'eggs', 'bread', 'grain']
 ];
@@ -63,8 +63,17 @@ else {
   alert('Too bad! Try again.');
 }
 
-var answer5 = prompt('say, ' + username + ', what kind of wild animal do I feed?');
-if(checkAnswerMulti(answer5, answers[5], 5) === true) {
+//var answer5 = prompt('What year did the Spanish Armada attack England?');
+if(guessNumericAnswer('What year did the Spanish Armada attack England?', answers[5], 4) === true) {
+  alert('Correct! I really enjoyed the book about it by Garrett Mattingly.');
+  correctAnswers++;
+}
+else {
+  alert('Too bad! Try again.');
+}
+
+var answer6 = prompt('say, ' + username + ', what kind of wild animal do I feed?');
+if(checkAnswerMulti(answer6, answers[6], 6) === true) {
   alert('Correct! I want to make friends with them!');
   correctAnswers++;
 }
@@ -72,8 +81,8 @@ else {
   alert('Too bad! Try again.');
 }
 
-var answer6 = prompt('say, ' + username + ', what are some good things to feed crows?');
-if(checkAnswerMulti(answer6, answers[6], 6) === true) {
+var answer7 = prompt('say, ' + username + ', what are some good things to feed crows?');
+if(checkAnswerMulti(answer7, answers[7], 7) === true) {
   alert('Correct! I usually feed mine peanuts.');
   correctAnswers++;
 }
@@ -135,5 +144,41 @@ function checkAnswerMulti(ans, reals, number) {
   }
 
   console.log('Question ' + number + ', answer given: ' + ans + ' result: false');
+  return false;
+}
+
+function guessNumericAnswer(question, real, maxGuesses)
+{
+  var guesses = 0;
+  var answer;
+
+  if(typeof real !== 'number')
+  {
+    console.log('Type of argument real in guessNumericAnswer isn\'t a number: ' + real);
+    return false;
+  }
+
+  while(guesses < maxGuesses)
+  {
+    answer = parseInt(prompt(question + ' ' + (guesses + 1) + '/' + maxGuesses));
+    if(typeof answer !== 'number')
+    {
+      alert('please answer with a number!');
+      continue;
+    }
+
+    if(answer === real) {
+      return true;
+    }
+    else if(answer < real) {
+      alert('Too low!');
+      guesses++;
+    }
+    else if(answer > real) {
+      alert('Too high!');
+      guesses++;
+    }
+  }
+
   return false;
 }
