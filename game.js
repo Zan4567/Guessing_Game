@@ -1,5 +1,3 @@
-//Lab 2 script
-
 var answers = [
   true,
   false,
@@ -91,14 +89,7 @@ else {
 }
 
 console.log('Correct answers: ' + correctAnswers + '/' + answers.length);
-if(correctAnswers === answers.length)
-{
-  alert('Congrats! You got all the answers correct!');
-}
-else
-{
-  alert('You got ' + correctAnswers + ' correct out of ' + answers.length + ' questions');
-}
+displayScoreMessage(correctAnswers, answers.length, username);
 
 //wrapper for checkAnswer that prints the result to the console
 function logAnswer(ans, real, number) {
@@ -181,4 +172,17 @@ function guessNumericAnswer(question, real, maxGuesses)
   }
 
   return false;
+}
+
+function displayScoreMessage(score, max, playerName)
+{
+  if(score === max) {
+    alert('You got all ' + max + ' questions right! Congratulations, ' + playerName + '!');
+  }
+  else if(score / max >= .7) {
+    alert('You got ' + score + ' out of ' + max + ' questions right. You\'re doing well, ' + playerName + '.');
+  }
+  else {
+    alert('You got ' + score + ' out of ' + max + ' questions right. Better luck next time, ' + playerName + '!');
+  }
 }
