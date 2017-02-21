@@ -1,14 +1,14 @@
 function guessingGame() {
 
   var questions = [
-    [1, 'was I born around Seattle?', 'Correct! I\'m a Seattlite.', ''],
-    [1, 'did I have dogs growing up?', 'Correct! I had cats growing up, not dogs.', ''],
-    [1, 'have I done any coding before?', 'Correct! I\'m actually working on a project of my own right now.', ''],
-    [1, 'do I speak any foreign languages?', 'Correct! I want to learn Japanese though.', ''],
-    [1, 'am I a football fan?', 'Correct! I\'m not a follower of either type of football.', ''],
+    [1, 'Was I born around Seattle?', 'Correct! I\'m a Seattlite.', ''],
+    [1, 'Did I have dogs growing up?', 'Correct! I had cats growing up, not dogs.', ''],
+    [1, 'Have I done any coding before?', 'Correct! I\'m actually working on a project of my own right now.', ''],
+    [1, 'Do I speak any foreign languages?', 'Correct! I want to learn Japanese though.', ''],
+    [1, 'Am I a football fan?', 'Correct! I\'m not a follower of either type of football.', ''],
     [4, 'What year did the Spanish Armada attack England?', 'Correct! I really enjoyed the book about it by Garrett Mattingly.', 'number'],
-    [6, 'what kind of wild animal do I feed?', 'Correct! I want to make friends with them!', 'string'],
-    [6, 'what are some good things to feed crows?', 'Correct! I usually feed mine peanuts.', 'string']
+    [6, 'What kind of wild animal do I feed?', 'Correct! I want to make friends with them!', 'string'],
+    [6, 'What are some good things to feed crows?', 'Correct! I usually feed mine peanuts.', 'string']
   ]
 
   var answers = [
@@ -37,7 +37,7 @@ function guessingGame() {
 
   console.log('Correct answers: ' + correctAnswers + '/' + answers.length);
   displayScoreMessage(correctAnswers, answers.length, username);
-}
+}//guessingGame
 
 function answerQuestion(name, questionData, ans) {
   var isCorrect = false;
@@ -55,13 +55,17 @@ function answerQuestion(name, questionData, ans) {
     isCorrect = guessBooleanAnswer(questionData[1], ans[0], questionData[0]);
   }
 
+  var answerString = getAnswersString(ans);
+
   if(isCorrect) {
-    alert(questionData[2]);
-    displayAnswers(ans);
+    alert(questionData[2] + ' ' + answerString);
     return true;
   }
   else {
-    displayAnswers(ans);
+    if(answerString !== '')
+    {
+      alert('No guesses left! ' + answerString);
+    }
     return false;
   }
 }
@@ -105,18 +109,18 @@ function checkAnswerMulti(ans, reals) {
   return false;
 }
 
-function displayAnswers(answers) {
-  var str = 'Answers: ';
+function getAnswersString(answers) {
   if(answers.length <= 1) {
-    return;
+    return '';
   }
+  var str = 'Answers: ';
 
   for (var i = 0; i < answers.length - 1; i++) {
     str = str + answers[i] + ', ';
   }
   str = str + answers[answers.length - 1]; //no comma after the last answer.
 
-  alert(str);
+  return str;
 }
 
 function guessBooleanAnswer(question, real, maxGuesses)
@@ -126,7 +130,7 @@ function guessBooleanAnswer(question, real, maxGuesses)
 
   while(guesses < maxGuesses)
   {
-    answer = prompt(question + ' guess ' + (guesses + 1) + '/' + maxGuesses);
+    answer = prompt(question);
     console.log('Answer ' + (guesses + 1) + ' of ' + maxGuesses + ': ' + answer);
 
     if(checkAnswer(answer, real)) {
