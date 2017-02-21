@@ -1,5 +1,6 @@
 function guessingGame() {
 
+  //[number of guesses, question text, correct answer response, question type]
   var questions = [
     [1, 'Was I born around Seattle?', 'Correct! I\'m a Seattlite.', ''],
     [1, 'Did I have dogs growing up?', 'Correct! I had cats growing up, not dogs.', ''],
@@ -39,9 +40,11 @@ function guessingGame() {
   displayScoreMessage(correctAnswers, answers.length, username);
 }//guessingGame
 
+//master fn for asking a question. Delegates to specialized fns based on type
 function answerQuestion(name, questionData, ans) {
   var isCorrect = false;
 
+  //this is where you'd use a switch statement
   if(questionData[3] === 'number') {
     console.log('Question: ' + questionData[1] + ' TYPE:number');
     isCorrect = guessNumericAnswer(questionData[1], ans[0], questionData[0]);
@@ -62,6 +65,7 @@ function answerQuestion(name, questionData, ans) {
     return true;
   }
   else {
+    //don't display answers if it isn't a multiple-answer question
     if(answerString !== '')
     {
       alert('No guesses left! ' + answerString);
@@ -109,6 +113,7 @@ function checkAnswerMulti(ans, reals) {
   return false;
 }
 
+//returns a string containing the answers for multiple-answer questions. returns empty string if the question has only one answer.
 function getAnswersString(answers) {
   if(answers.length <= 1) {
     return '';
